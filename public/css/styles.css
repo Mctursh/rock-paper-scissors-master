@@ -1,0 +1,45 @@
+body{
+  text-align:center;
+  padding:30px;
+  background-color: #141539;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+}
+h6{
+  color: #fff;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: left;
+  line-height: 0.8;
+}
+p{
+  font-size: 0.5rem;
+  margin: 0;
+}
+.modal.fade{
+  opacity:1;
+}
+.modal.fade .modal-dialog {
+   -webkit-transform: translate(0);
+   -moz-transform: translate(0);
+   transform: translate(0);
+}
+
+.inherit{
+  background: inherit;
+}
+
+.pad-fix{
+  padding: 0.3rem 1rem;
+}
+
+.len{
+  height: 4rem;
+}
+.xs{
+  position: absolute;
+  margin-top: 5px;
+  right: 0.5rem;
+}
+.svg{
+  margin-top: 12rem;
+}
