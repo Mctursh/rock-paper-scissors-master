@@ -73,7 +73,7 @@ h5{
   margin-top: 9rem;
   position: relative;
 }
-.icon{
+.icon, .r-icon, .falseIcon{
   padding: 2rem;
   border: 12px solid;
   border-radius: 50%;
@@ -145,16 +145,22 @@ button.btn-lg{
   display: none;
 }
 
-.invisible{
+.invisiblility{
   visibility: hidden;
 }
 
+/* #hide{
+  display: inline-block !important;
+} */
+
 .rock-span{
   border-color: #dd405d;
+  padding: 2.15rem 2rem;
 }
 
 .scissors-span{
   border-color: #eca922;
+
 }
 
 .paper-span{
@@ -213,12 +219,15 @@ button.btn-lg{
 .modal-body{
   height: 670px;
 }
+.card-body h1{
+  display: inline-block;
+}
 .rock-span, .paper-span, .scissors-span{
-    -webkit-transition: all 1.0s ease;
-    -moz-transition: all 1.0s ease;
-    -o-transition: all 1.0s ease;
-    transition: all 1.0s ease;
-  }
+  -webkit-transition: all 1.0s ease;
+  -moz-transition: all 1.0s ease;
+  -o-transition: all 1.0s ease;
+  transition: all 1.0s ease;
+}
 
 /***************************** Media Queries************************* */
 
