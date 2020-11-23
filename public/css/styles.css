@@ -153,11 +153,6 @@ button.btn-lg{
   display: inline-block !important;
 } */
 
-.rock-span{
-  border-color: #dd405d;
-  padding: 2.15rem 2rem;
-}
-
 .scissors-span{
   border-color: #eca922;
 
@@ -165,6 +160,11 @@ button.btn-lg{
 
 .paper-span{
   border-color: #4865f4;
+}
+
+.rock-span{
+  border-color: #dd405d;
+  padding: 2.15rem 2rem;
 }
 
 .house-color{

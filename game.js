@@ -35,9 +35,10 @@ function process(arg) {
       $(".second-scissors").removeClass("hide invisiblility")
       $(".scissors.falseIcon").toggleClass(computerChosen + "-span");
       if (yourChosen != "paper"){
-        $(".first-" + yourChosen).addClass("hide");
-        $("#first-paper").attr("id", "hide");
+        $(".first-" + yourChosen).attr("style", "display: none !important;");
+        $(".first-paper").attr("style", "display: inline !important;");
       }
+
       $(".house-text").toggleClass("invisiblility");
       $(".paper.falseIcon").toggleClass(yourChosen + "-span");
       $(".first-svg, .rock.falseIcon, .low-text").toggleClass("invisiblility");
@@ -107,7 +108,7 @@ function housePick() {
   } else {
     $(".scissors.falseIcon").toggleClass(svg[randNum] + "-span");
     $(".second-scissors").toggleClass("hide")
-    $(".second-" + svg[randNum]).toggleClass("hide")
+    $(".second-" + svg[randNum]).toggleClass("hide").removeClass("invisiblility");
   }
   $(".house-text").toggleClass("invisiblility");
 
@@ -118,9 +119,9 @@ function housePick() {
 
 function yourPick(icon) {
   $(".scissors.icon, .rock.icon, .paper.icon").toggleClass("icon").toggleClass("falseIcon")
-  $(".first-paper").fadeOut(2000).toggleClass("hide");
+  $(".first-paper").fadeOut(2000).attr("style", "display: none !important;");
   $(".paper.falseIcon").toggleClass(icon + "-span");
-  $(".first-" + icon).fadeIn(2000).toggleClass("hide");
+  $(".first-" + icon).fadeIn(2000).attr("style", "display: inline !important;");
   $(".first-svg, .rock.falseIcon, .low-text").toggleClass("invisiblility");
   $(".scissors.falseIcon").toggleClass("house-color");
   $(".second-scissors").toggleClass("invisiblility");
