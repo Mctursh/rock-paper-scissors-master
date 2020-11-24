@@ -153,13 +153,15 @@ button.btn-lg{
   display: inline-block !important;
 } */
 
-.scissors-span{
-  border-color: #eca922;
 
-}
 
 .paper-span{
   border-color: #4865f4;
+}
+
+.scissors-span{
+  border-color: #eca922;
+
 }
 
 .rock-span{
