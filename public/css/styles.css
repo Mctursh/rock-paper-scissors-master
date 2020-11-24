@@ -74,7 +74,7 @@ h5{
   position: relative;
 }
 .modal-body .auto .mid{
-  margin-top: 2rem;
+  margin-top: 0;
 }
 .icon, .r-icon, .falseIcon{
   padding: 2rem;
@@ -134,9 +134,8 @@ button.btn-lg{
 }
 
 .btn-default.footer {
-  margin-top: 4rem;
   width: 20%;
-  margin: 4rem auto auto;
+  margin: 1rem auto auto;
 }
 
 .rules{

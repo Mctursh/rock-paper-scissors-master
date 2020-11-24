@@ -166,6 +166,7 @@ function processPaper() {
 function winnerDisplay() {
   $(".first-svg, .rock.icon").toggleClass("invisiblility");
   $(".bottom").toggleClass("invisiblility")
+  $(".bottom h1").text("YOU WIN")
 }
 
 function loserDisplay() {
