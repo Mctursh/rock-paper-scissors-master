@@ -70,8 +70,11 @@ h5{
   margin: auto;
 }
 .mid{
-  margin-top: 9rem;
+  margin-top: 4rem;
   position: relative;
+}
+.modal-body .auto .mid{
+  margin-top: 2rem;
 }
 .icon, .r-icon, .falseIcon{
   padding: 2rem;
@@ -219,7 +222,7 @@ button.btn-lg{
   margin-left: 1.3rem;
 }
 .modal-body{
-  height: 670px;
+  height: 550px;
 }
 .card-body h1{
   display: inline-block;
