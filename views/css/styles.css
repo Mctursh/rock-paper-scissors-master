@@ -20,7 +20,7 @@ h5{
   font-size: 0.8rem;
   display: inline-block;
 }
-img{
+/* img{
   border-radius: 50%;
   height: 50px;
 }
@@ -38,7 +38,7 @@ img{
   width: fit-content;
   display: inline-block;
   margin-left: 0.5rem;
-}
+} */
 .bottom{
   margin-left: 2rem;
 }
