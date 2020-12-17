@@ -98,10 +98,63 @@
 <button type="button" class="btn btn-outline-light footer" data-toggle="modal" data-target="#myModal">
   RULES
 </button>
-</form>
+<br>
+<button type="button"  class="btn btn-outline-light footer leaderboard" data-toggle="modal" data-target="#leaderboard">
+  LEADERBOARD
+</button>
 
+<!-- My Leaderboard Modal -->
+<div class="modal fade" id="leaderboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <div class="body">
+          <div class="main-content">
+            <div class="top-section">
+              <h1>LEADERBOARD</h1>
+              <button type="button" class="btn btn-default footer rule-btn leader" data-dismiss="modal"><i class="fas fa-2x fa-arrow-right"></i></button>
+            </div>
+            <div class="player-section">
+              <div class="player">
+                <i class="fas fa-caret-up"></i>
+                <h2 class="rank">1</h2>
+                <img src="<%= imageURL %>" alt="">
+                <h1><%= familyName %></h1>
+                <h2 class="points">10<span><h6>pts</h6></span></h2>
+              </div>
+              <div class="player">
+                <i class="fas fa-caret-up"></i>
+                <h2 class="rank">2</h2>
+                <img src="<%= imageURL %>" alt="">
+                <h1><%= familyName %></h1>
+                <h2 class="points">10<span><h6>pts</h6></span></h2>
+              </div>
+              <div class="player">
+                <i class="fas fa-caret-up"></i>
+                <h2 class="rank">3</h2>
+                <img src="<%= imageURL %>" alt="">
+                <h1><%= familyName %></h1>
+                <h2 class="points">10<span><h6>pts</h6></span></h2>
+              </div>
+              <div class="player">
+                <i class="fas fa-caret-up"></i>
+                <h2 class="rank">4</h2>
+                <img src="<%= imageURL %>" alt="">
+                <h1><%= familyName %></h1>
+                <h2 class="points">10<span><h6>pts</h6></span></h2>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<!-- Modal -->
+
+<!--Rules Modal -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

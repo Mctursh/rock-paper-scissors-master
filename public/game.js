@@ -1,6 +1,3 @@
-function testAnim(x) {
-  $('.modal .modal-dialog').attr('class', 'modal-dialog  ' + x + '  animated');
-};
 $('#myModal').on('show.bs.modal', function(e) {
   $('.modal .modal-dialog').attr('class', 'modal-dialog slideInUp animated');
 })
@@ -9,6 +6,13 @@ $('#myModal').on('hide.bs.modal', function(e) {
   $('.modal .modal-dialog').attr('class', 'modal-dialog slideOutDown animated');
 })
 
+$('#leaderboard').on('show.bs.modal', function(e) {
+  $('.modal .modal-dialog').attr('class', 'modal-dialog slideInUp animated');
+})
+
+$('#leaderboard').on('hide.bs.modal', function(e) {
+  $('.modal .modal-dialog').attr('class', 'modal-dialog slideOutDown animated');
+})
 
 
 $(".paper.icon").on("click", function() {
@@ -18,7 +22,8 @@ $(".paper.icon").on("click", function() {
 $(".scissors.icon").on("click", function() {
   process("scissors");
 })
-$(".rock.icon").on("click", function() {
+
+ $(".rock.icon").on("click", function() {
   process("rock")
 })
 
@@ -58,38 +63,29 @@ function process(arg) {
       check(computerChosen, yourChosen);
       setTimeout(function() {
 
-          $(".second-" + computerChosen).addClass("hide");
-          $(".second-scissors").removeClass("hide invisiblility")
-          $(".scissors.falseIcon").toggleClass(computerChosen + "-span");
-          if (yourChosen != "paper") {
-            $(".first-" + yourChosen).attr("style", "display: none !important;");
-            $(".first-paper").attr("style", "display: inline !important;");
-          }
+        $(".second-" + computerChosen).addClass("hide");
+        $(".second-scissors").removeClass("hide invisiblility")
+        $(".scissors.falseIcon").toggleClass(computerChosen + "-span");
+        if (yourChosen != "paper") {
+          $(".first-" + yourChosen).attr("style", "display: none !important;");
+          $(".first-paper").attr("style", "display: inline !important;");
+        }
 
-          $(".house-text").toggleClass("invisiblility");
-          $(".paper.falseIcon").toggleClass(yourChosen + "-span");
-          $(".first-svg, .rock.falseIcon, .low-text").toggleClass("invisiblility");
-          $(".scissors.falseIcon, .rock.falseIcon, .paper.falseIcon").toggleClass("icon").toggleClass("falseIcon")
-          if (yourScore < 10) {
-            if (computerScore < 10) {
-              $(".paper.icon").on("click", function() {
-                process("paper");
-              })
-              $(".scissors.icon").on("click", function() {
-                process("scissors");
-              })
-              $(".rock.icon").on("click", function() {
-                process("rock")
-              })
-            } else {
-              $(".scissors.icon, .rock.icon, .paper.icon").off()
-              $(".house-text, .low-text").toggleClass("invisiblility");
-              if (yourScore > computerScore) {
-                winnerDisplay()
-              } else {
-                loserDisplay()
-              }
-            }
+        $(".house-text").toggleClass("invisiblility");
+        $(".paper.falseIcon").toggleClass(yourChosen + "-span");
+        $(".first-svg, .rock.falseIcon, .low-text").toggleClass("invisiblility");
+        $(".scissors.falseIcon, .rock.falseIcon, .paper.falseIcon").toggleClass("icon").toggleClass("falseIcon")
+        if (yourScore < 10) {
+          if (computerScore < 10) {
+            $(".paper.icon").on("click", function() {
+              process("paper");
+            })
+            $(".scissors.icon").on("click", function() {
+              process("scissors");
+            })
+            $(".rock.icon").on("click", function() {
+              process("rock")
+            })
           } else {
             $(".scissors.icon, .rock.icon, .paper.icon").off()
             $(".house-text, .low-text").toggleClass("invisiblility");
@@ -98,10 +94,20 @@ function process(arg) {
             } else {
               loserDisplay()
             }
+          }
+        } else {
+          $(".scissors.icon, .rock.icon, .paper.icon").off()
+          $(".house-text, .low-text").toggleClass("invisiblility");
+          if (yourScore > computerScore) {
+            winnerDisplay()
+          } else {
+            loserDisplay()
+          }
         }
-      },2500)
-    }, 3000)}
+      }, 2500)
+    }, 3000)
   }
+}
 
 
 
