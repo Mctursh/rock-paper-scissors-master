@@ -5,7 +5,7 @@ const ejs = require("ejs");
 const session = require("express-session");
 const passport = require("passport");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const findOrCreate = require('mongoose-find-or-create')
+const biggest = require('./biggest')
 
 //Congigures our app to use express
 const app = express();
@@ -27,10 +27,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Connecting to our Database
-mongoose.connect("mongodb://localhost:27017/rpsDB", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://admin-ayoade:" + process.env.MONGO_CLUSTER_ACCESS +"@cluster0.4d1r2.mongodb.net/rpsDB?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
 
 //Schema creation
-const userSchema =new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: String,
   googleId: String,
   imageURL: String,
@@ -38,9 +38,6 @@ const userSchema =new mongoose.Schema({
   currentRank: Number,
   previousRank: Number
 });
-
-//setting our userSchema to use an exxternal plugin(findOrCreate)
-userSchema.plugin(findOrCreate);
 
 //Creating our model
 const User = mongoose.model("User", userSchema);
@@ -61,16 +58,16 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/rock-paper-scissors",
+    callbackURL: "https://stormy-lowlands-16352.herokuapp.com/auth/google/rock-paper-scissors",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
   },
   function(accessToken, refreshToken, profile, cb) {
-    //check to create a user(if none) or find an existing user
+
     let googleID = profile.id
     let name = profile.name.familyName
     let imageURL = profile._json.picture
-    let currentRank = 0;
 
+    //check to create a user(if none) or find an existing user
     User.findOne({googleId: googleID}, (err, user) => {
       if (user == null || undefined) {
         User.create({name: name, googleId: googleID, imageURL: imageURL, currentRank: 0}, (err, user) => {
@@ -85,24 +82,26 @@ passport.use(new GoogleStrategy({
     });
   }))
 
-
+//route for unregistered users
 app.get("/", function(req, res) {
   res.sendFile(__dirname + "/public/index.html")
 });
 
+//route for registered users
 app.get("/home", function(req, res){
   //check if a user is authenticated
   if (req.isAuthenticated()) {
-    User.find({}, (err, docs) => {
+    User.find({}, (err, docs) => {    //finds all documents
       if (!err) {
         let rankNumber = 1
-        docs.forEach( p => {
+        docs.forEach( p => {         //check for newly signed up user to fill the score value
         if (p.score == null || undefined) {
           p.score = 0
         }
-          p.previousRank = p.currentRank
+          p.previousRank = p.currentRank    //this updates the previous rank
         })
 
+         //this gets and pushes all the user scores into an array
         let scores = []
         docs.forEach( u => {
           scores.push(u.score)
@@ -110,9 +109,11 @@ app.get("/home", function(req, res){
 
         let rankingScores = [...scores]
 
+        //biggest function arranges the scores in descending order
         let refreshedRearrangedScores = biggest(scores)
-
         let arrangedScores = biggest(rankingScores)
+
+        //this updates the value of the new rank of the users
         docs.forEach( d => {
           let currentRank = arrangedScores.indexOf(d.score) + 1
           d.currentRank = currentRank
@@ -140,9 +141,13 @@ app.get('/auth/google/rock-paper-scissors',
     res.redirect("/home")
 });
 
+//route triggered for win
 app.get("/restart/win", (req, res) => {
+  //check if user is authenticated
   if (req.isAuthenticated()) {
     let googleID = req.user.googleId
+
+    //finds the user and update the score
     User.findOne({googleId: googleID}, function(err, user) {
       user.score += 5;
       user.save()
@@ -153,9 +158,13 @@ app.get("/restart/win", (req, res) => {
   }
 })
 
+//route triggered for loss
 app.get("/restart/lose", (req, res) => {
+  //check if user is authenticated
   if (req.isAuthenticated()) {
     let googleID = req.user.googleId
+
+    //finds user and update the score
     User.findOne({googleId: googleID}, function(err, user) {
       user.score -= 3;
       User.find({}, (err, docs) => {})
@@ -167,28 +176,12 @@ app.get("/restart/lose", (req, res) => {
   }
 })
 
-//listen for port 3000
-app.listen(3000, function(req, res) {
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+
+//listen for port
+app.listen(port, function(req, res) {
   console.log("Succefully running on port 3000");
 })
-
-
-
-
-let biggest = (scores) => {
-    let arrList = []
-    let i = scores.length
-    while (scores.length < (i + 1)) {
-        let max = (Math.max(...scores))
-        arrList.push(max)
-        let index = scores.indexOf(max)
-        scores.splice(index, 1)
-        if (scores.length === 0) {
-            break
-        } else {
-            i--
-        }
-
-    }
-    return arrList
-}

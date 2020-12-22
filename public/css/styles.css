@@ -60,9 +60,9 @@ img{
   opacity:1;
 }
 .modal.fade .modal-dialog {
-   -webkit-transform: translate(0);
-   -moz-transform: translate(0);
-   transform: translate(0);
+  -webkit-transform: translate(0);
+  -moz-transform: translate(0);
+  transform: translate(0);
 }
 
 .inherit{
@@ -171,12 +171,6 @@ button.btn-lg{
   visibility: hidden;
 }
 
-/* #hide{
-  display: inline-block !important;
-} */
-
-
-
 .paper-span{
   border-color: #4865f4;
 }
@@ -272,6 +266,12 @@ a.btn-google{
   -o-transition: all 1.0s ease;
   transition: all 1.0s ease;
 }
+button a{
+  color: black;
+}
+
+
+/* LEADERBOARD MODAL SECTION */
 .leaderboard{
   margin-top: 1rem;
 }
@@ -299,12 +299,7 @@ a.btn-google{
 #leaderboard .modal-dialog .modal-content{
   border: 0;
 }
-button a{
-  color: black;
-}
 
-
-/* LEADERBOARD SECTION */
 .player{
   text-align: left;
   position: relative;
