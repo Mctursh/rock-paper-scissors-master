@@ -71,7 +71,8 @@
       <h5 class="house-text invisiblility">THE HOUSE PICKED</h5>
       <div class="bottom invisiblility">
         <h1>YOU WIN</h1>
-        <button type="button" class="btn btn-light btn-lg" name="button">PLAY AGAIN</button>
+        <button type="button" id="win-button" class="btn btn-light btn-lg" name="button"><a id="win" href="/restart/win">PLAY AGAIN</a></button>
+        <button type="button" id="lose-button" class="btn btn-light btn-lg" name="button"><a id="lose" href="/restart/lose">PLAY AGAIN</a></button>
       </div>
     </div>
   </div>
@@ -116,34 +117,27 @@
               <button type="button" class="btn btn-default footer rule-btn leader" data-dismiss="modal"><i class="fas fa-2x fa-arrow-right"></i></button>
             </div>
             <div class="player-section">
-              <div class="player">
-                <i class="fas fa-caret-up"></i>
-                <h2 class="rank">1</h2>
-                <img src="<%= imageURL %>" alt="">
-                <h1><%= familyName %></h1>
-                <h2 class="points">10<span><h6>pts</h6></span></h2>
-              </div>
-              <div class="player">
-                <i class="fas fa-caret-up"></i>
-                <h2 class="rank">2</h2>
-                <img src="<%= imageURL %>" alt="">
-                <h1><%= familyName %></h1>
-                <h2 class="points">10<span><h6>pts</h6></span></h2>
-              </div>
-              <div class="player">
-                <i class="fas fa-caret-up"></i>
-                <h2 class="rank">3</h2>
-                <img src="<%= imageURL %>" alt="">
-                <h1><%= familyName %></h1>
-                <h2 class="points">10<span><h6>pts</h6></span></h2>
-              </div>
-              <div class="player">
-                <i class="fas fa-caret-up"></i>
-                <h2 class="rank">4</h2>
-                <img src="<%= imageURL %>" alt="">
-                <h1><%= familyName %></h1>
-                <h2 class="points">10<span><h6>pts</h6></span></h2>
-              </div>
+            <%  refreshedRearrangedScores.forEach( arr => { %>
+              <%  let user = users.filter( u => u.score == arr ) %>
+              <% console.log(refreshedRearrangedScores); %>
+                <%  if (user[0].score < 0) { %>
+                  <%  user[0].score = 0 %>
+                <%  } %>
+                  <div class="player">
+                  <%  if (user[0].previousRank > user[0].currentRank) { %>
+                      <i class="fas fa-caret-up"></i>
+                  <%  } else if (user[0].currentRank > user[0].previousRank) { %>
+                      <i class="fas fa-caret-down"></i>
+                  <%  } else { %>
+                    <i class="fas fa-circle"></i>
+                <% } %>
+                    <h2 class="rank"><%= user[0].currentRank %></h2>
+                    <img src="<%= user[0].imageURL %>" alt="">
+                    <h1><%= user[0].name %></h1>
+                    <h2 class="points"><%= user[0].score %><span><h6>pts</h6></span></h2>
+                  </div>
+              <% delete users[users.indexOf(user[0])] %>
+            <%  })  %>
             </div>
 
           </div>

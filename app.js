@@ -34,7 +34,9 @@ const userSchema =new mongoose.Schema({
   name: String,
   googleId: String,
   imageURL: String,
-  score: Number
+  score: Number,
+  currentRank: Number,
+  previousRank: Number
 });
 
 //setting our userSchema to use an exxternal plugin(findOrCreate)
@@ -64,42 +66,62 @@ passport.use(new GoogleStrategy({
   },
   function(accessToken, refreshToken, profile, cb) {
     //check to create a user(if none) or find an existing user
-    User.findOrCreate({ googleId: profile.id}, function (err, user) {
+    let googleID = profile.id
+    let name = profile.name.familyName
+    let imageURL = profile._json.picture
+    let currentRank = 0;
 
-      //finds the newly found/created user and updates its profile
-      User.findOneAndUpdate({ googleId: profile.id},{$set: {name: profile.name.familyName, imageURL: profile._json.picture}}, {useFindAndModify: false}, function(err, user) {
-        if (!err) {
-        } else {
-          console.log(err);
-        }
-      });
-      return cb(err, user);
+    User.findOne({googleId: googleID}, (err, user) => {
+      if (user == null || undefined) {
+        User.create({name: name, googleId: googleID, imageURL: imageURL, currentRank: 0}, (err, user) => {
+          if (err) {
+            console.log(err);
+          }
+          return cb(err, user);
+        })
+      } else {
+        return cb(err, user);
+      }
     });
-  }
-));
-
-// to filter the current user visiting the page
-// founduser.filter(u => {
-//   if (u.googleId == req.user.googleId) {
-//     var currentUser = u
-//   }
-// })
+  }))
 
 
 app.get("/", function(req, res) {
-  console.log(req);
   res.sendFile(__dirname + "/public/index.html")
 });
 
 app.get("/home", function(req, res){
   //check if a user is authenticated
   if (req.isAuthenticated()) {
-    User.findOne({googleId: req.user.googleId}, function(err, foundUser) {
-      if (err){
-        console.log(err);
+    User.find({}, (err, docs) => {
+      if (!err) {
+        let rankNumber = 1
+        docs.forEach( p => {
+        if (p.score == null || undefined) {
+          p.score = 0
+        }
+          p.previousRank = p.currentRank
+        })
+
+        let scores = []
+        docs.forEach( u => {
+          scores.push(u.score)
+        })
+
+        let rankingScores = [...scores]
+
+        let refreshedRearrangedScores = biggest(scores)
+
+        let arrangedScores = biggest(rankingScores)
+        docs.forEach( d => {
+          let currentRank = arrangedScores.indexOf(d.score) + 1
+          d.currentRank = currentRank
+          d.save()
+          arrangedScores[arrangedScores.indexOf(d.score)] = null
+        })
+        res.render('home', {imageURL: req.user.imageURL, familyName: req.user.name, users: docs, refreshedRearrangedScores: refreshedRearrangedScores});
       } else {
-        console.log(req);
-        res.render('home', {imageURL: foundUser.imageURL, familyName: foundUser.name});
+        console.log(err);
       }
     })
   } else {
@@ -118,31 +140,55 @@ app.get('/auth/google/rock-paper-scissors',
     res.redirect("/home")
 });
 
+app.get("/restart/win", (req, res) => {
+  if (req.isAuthenticated()) {
+    let googleID = req.user.googleId
+    User.findOne({googleId: googleID}, function(err, user) {
+      user.score += 5;
+      user.save()
+      res.redirect("/home");
+    })
+  } else {
+    res.redirect("/")
+  }
+})
+
+app.get("/restart/lose", (req, res) => {
+  if (req.isAuthenticated()) {
+    let googleID = req.user.googleId
+    User.findOne({googleId: googleID}, function(err, user) {
+      user.score -= 3;
+      User.find({}, (err, docs) => {})
+      user.save()
+      res.redirect("/home");
+    })
+  } else {
+    res.redirect("/")
+  }
+})
+
 //listen for port 3000
 app.listen(3000, function(req, res) {
   console.log("Succefully running on port 3000");
 })
 
 
-//Function for finding arranging in descending order
-// let list = [10, 5, 3, 15, 12, 7, 11, 20]
-//
-// let biggest = (scores) => {
-//     let arrList = []
-//     let i = scores.length
-//     while (scores.length < (i + 1)) {
-//         let max = (Math.max(...scores))
-//         arrList.push(max)
-//         let index = scores.indexOf(max)
-//         scores.splice(index, 1)
-//         if (scores.length === 0) {
-//             break
-//         } else {
-//             i--
-//         }
-//
-//     }
-//     return arrList
-// }
-//
-// biggest(list);
+
+
+let biggest = (scores) => {
+    let arrList = []
+    let i = scores.length
+    while (scores.length < (i + 1)) {
+        let max = (Math.max(...scores))
+        arrList.push(max)
+        let index = scores.indexOf(max)
+        scores.splice(index, 1)
+        if (scores.length === 0) {
+            break
+        } else {
+            i--
+        }
+
+    }
+    return arrList
+}

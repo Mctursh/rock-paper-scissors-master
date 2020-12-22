@@ -299,6 +299,9 @@ a.btn-google{
 #leaderboard .modal-dialog .modal-content{
   border: 0;
 }
+button a{
+  color: black;
+}
 
 
 /* LEADERBOARD SECTION */
@@ -341,6 +344,10 @@ a.btn-google{
 
 .fa-caret-up{
   color: green;
+}
+.fa-circle{
+  font-size: 0.5rem;
+  color: #a9a9a9;
 }
 
 .fa-caret-down{

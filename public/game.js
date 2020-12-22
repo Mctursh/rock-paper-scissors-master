@@ -27,25 +27,26 @@ $(".scissors.icon").on("click", function() {
   process("rock")
 })
 
-$("button.btn-light").on("click", function() {
-  $(".house-text, .low-text").toggleClass("invisiblility");
-  $(".bottom").toggleClass("invisiblility")
-  $(".first-svg, .rock.icon").toggleClass("invisiblility");
-  $("#you, #computer").text(0)
-  yourScore = 0;
-  computerScore = 0;
-  $(".paper.icon").on("click", function() {
-    process("paper");
-  })
+function restart() {
+  $("button.btn-light").on("click", function() {
+    $(".house-text, .low-text").toggleClass("invisiblility");
+    $(".bottom").toggleClass("invisiblility")
+    $(".first-svg, .rock.icon").toggleClass("invisiblility");
+    $("#you, #computer").text(0)
+    yourScore = 0;
+    computerScore = 0;
+    $(".paper.icon").on("click", function() {
+      process("paper");
+    })
 
-  $(".scissors.icon").on("click", function() {
-    process("scissors");
+    $(".scissors.icon").on("click", function() {
+      process("scissors");
+    })
+    $(".rock.icon").on("click", function() {
+      process("rock")
+    })
   })
-  $(".rock.icon").on("click", function() {
-    process("rock")
-  })
-})
-
+}
 
 let yourScore = 0;
 let computerScore = 0;
@@ -173,12 +174,24 @@ function winnerDisplay() {
   $(".first-svg, .rock.icon").toggleClass("invisiblility");
   $(".bottom").toggleClass("invisiblility")
   $(".bottom h1").text("YOU WIN")
+  $("#lose-button").addClass("hide")
+  setTimeout(function() {
+    $("button.btn-light").unbind()
+    $("#win")[0].click()
+    restart()
+  }, 3000)
 }
 
 function loserDisplay() {
   $(".first-svg, .rock.icon").toggleClass("invisiblility");
   $(".bottom").toggleClass("invisiblility");
   $(".bottom h1").text("YOU LOSE")
+  $("#win-button").addClass("hide")
+  setTimeout(function() {
+    $("button.btn-light").unbind()
+    $("#lose")[0].click()
+    restart()
+  }, 3000);
 }
 
 function check(computerChosen, yourChosen) {
