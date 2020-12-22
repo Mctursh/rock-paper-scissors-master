@@ -3,11 +3,12 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
 
   <title>Rock-Paper-Scissors</title>
+  <meta name="viewport" content="width=device-width">
 
   <!-- Google onts CDN -->
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&display=swap" rel="stylesheet">
@@ -42,9 +43,10 @@
       color:#f5deb3;
     }
   </style>
-  <link rel="stylesheet" href="public/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap-social.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-  <link rel="stylesheet" href="public/css/styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
@@ -70,6 +72,16 @@
       </div>
     </div>
   </div>
+
+  <div class="right">
+    <div class="card border-light sign-in">
+      <a href="/auth/google" class="btn btn-block btn-social btn-google">
+     <span class="fab fa-google"></span> Sign in
+   </a>
+    </div>
+  </div>
+
+
 
   <div class="auto">
     <div class="mid">
@@ -203,6 +215,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" charset="utf-8"></script>
     <script src="game.js" charset="utf-8"></script>
+
+
+    </script>
   </div>
 </body>
 
