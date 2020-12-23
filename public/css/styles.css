@@ -93,9 +93,7 @@ img{
   margin-top: 4rem;
   position: relative;
 }
-.modal-body .auto .mid{
-  margin-top: 0;
-}
+
 .icon, .r-icon, .falseIcon{
   padding: 2rem;
   border: 12px solid;
@@ -232,10 +230,12 @@ button.btn-lg{
 }
 
 .modal-body .auto .mid{
+  margin-top: 0;
   margin-left: 1.3rem;
 }
 .modal-body{
   height: 550px;
+  max-height: 550px;
 }
 #leaderboard .modal-dialog .modal-content .modal-body{
   padding: 0;
@@ -274,6 +274,9 @@ button a{
 /* LEADERBOARD MODAL SECTION */
 .leaderboard{
   margin-top: 1rem;
+}
+.player-section{
+  overflow: scroll;
 }
 .top-section h1, .top-section button{
   color: #fff;
